@@ -1,3 +1,26 @@
+export type LoginRequest = {
+    username: string,
+    password: string
+}
+
+export type LoginResponse = {
+    avatar: string,
+    email: string,
+    fullName?: string,
+    role?: Role,
+    token: string,
+    username: string
+
+}
+
+export type SignUpRequest = {
+    username: string,
+    password: string,
+    email: string,
+    gender: Gender,
+    fullName: string
+}
+
 export type User = {
     id: number,
     username: string,

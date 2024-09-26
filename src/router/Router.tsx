@@ -1,8 +1,11 @@
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
 import { useAccountStore } from "../store/zustand";
 import { Role } from "../model/user";
-import Login from "../pages/LoginPage/Login";
+import LoginPage from "../pages/LoginPage/LoginPage";
 import Header from "../components/Header/Header";
+import { Footer } from "../components/Footer/Footer";
+import HomePage from "../pages/HomePage/HomePage";
+import RegisterPage from "../pages/RegisterPage/RegisterPage";
 
 export const AdminRoute = ({ children }: any) => {
     const user = useAccountStore((state) => state.account)
@@ -46,18 +49,26 @@ const publicRouter = createBrowserRouter([
         element: <>
         <Header/>
         <Outlet/>
+        <Footer/>
         </>,
         children: [
             {
-                path: "protect",
-                element: <GeneralRoute>
-                    <h1>Protected</h1>
-                </GeneralRoute>
+                path: "/",
+                element: <HomePage/>
             },
             {
-                path: "login",
-                element: <Login/>
+                path: "trang-chu",
+                element: <HomePage/>
+            },
+            {
+                path: "dang-nhap",
+                element: <LoginPage/>
+            },
+            {
+                path: "dang-ky",
+                element: <RegisterPage/>
             }
+
         ]
     }
 ])

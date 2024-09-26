@@ -1,10 +1,11 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { User } from '../model/user'
+import { LoginResponse, User } from '../model/user'
 
 export interface AccountState {
-  account: User | null | undefined
-  setAccount: (user: User) => void
+  account: LoginResponse | null | undefined
+  signIn: (user?: LoginResponse) => void
+  signOut: () => void
 }
 
 export const useAccountStore = create<AccountState>()(
@@ -12,7 +13,8 @@ export const useAccountStore = create<AccountState>()(
     persist(
       (set, get) => ({
         account: null,
-        setAccount: (user) => set(() => ({ account: user })),
+        signIn: (user) => set(() => ({ account: user })),
+        signOut: () => set(() => ({ account: null }))
       }),
       { name: 'accountStore' },
     ),
