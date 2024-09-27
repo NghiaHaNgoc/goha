@@ -8,9 +8,11 @@ import { ScrollPanel } from "primereact/scrollpanel";
 import { Avatar } from "primereact/avatar";
 import HTMLReactParser from "html-react-parser/lib/index";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [salons, setSalons] = useState<Salon[] | undefined>([]);
+  const navigate = useNavigate();
   const [pagination, setPagination] = useState({
     first: 1,
     rows: 6,
@@ -43,7 +45,10 @@ export default function HomePage() {
         <div className="w-full lg:w-8" style={{ background: "#EEEEEE" }}>
           <div className="grid mt-4">
             {salons?.map((salon) => (
-              <div className="h-20rem col-12 md:col-6 lg:col-4 flex justify-content-center align-content-center">
+              <div
+                key={salon.id}
+                className="h-20rem col-12 md:col-6 lg:col-4 flex justify-content-center align-content-center"
+              >
                 <Card
                   className="w-11 h-17rem"
                   title={salon.name}
@@ -82,6 +87,7 @@ export default function HomePage() {
                     label="Xem chi tiết"
                     size="small"
                     outlined
+                    onClick={() => navigate(`/salon/${salon.id}`)}
                   />
                 </Card>
               </div>

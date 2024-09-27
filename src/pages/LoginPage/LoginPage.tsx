@@ -87,11 +87,7 @@ export default function LoginPage() {
               )}
             />
 
-            <Button
-              className="mt-6"
-              type="submit"
-              label="Đăng nhập"
-            />
+            <Button className="mt-6" type="submit" label="Đăng nhập" />
           </form>
         </Card>
       </div>
