@@ -7,9 +7,8 @@ import { Avatar } from "primereact/avatar";
 import { useAccountStore } from "../../store/zustand";
 import { Menu } from "primereact/menu";
 import { Button } from "primereact/button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
-import { signOutService } from "../../service/accountService";
 import { Role } from "../../model/user";
 
 export default function Header() {
@@ -17,6 +16,7 @@ export default function Header() {
   const signOutAccount = useAccountStore((state) => state.signOut);
   const userMenu = useRef<any>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const items = [
     {
@@ -24,7 +24,7 @@ export default function Header() {
       url: "/trang-chu",
       className:
         location.pathname == "/trang-chu" || location.pathname == "/"
-          ? "p-menuitem-active"
+          ? "p-menuitem-active border-round"
           : "",
     },
 
@@ -42,11 +42,11 @@ export default function Header() {
     loggedOut: [
       {
         label: "Đăng nhập",
-        url: "/dang-nhap"
+        url: "/dang-nhap",
       },
       {
         label: "Đăng ký",
-        url: "dang-ky"
+        url: "dang-ky",
       },
     ],
     loggedIn: [
@@ -60,14 +60,12 @@ export default function Header() {
       {
         label: "Đăng xuất",
         command: () => {
-          signOutService().then(() => {
-            signOutAccount();
-          });
+          signOutAccount();
+          navigate("/");
         },
       },
     ],
   };
-
 
   const start = (
     <img
@@ -80,11 +78,7 @@ export default function Header() {
 
   const end = (
     <div className="flex align-items-center justify-content-around">
-      <InputText
-        placeholder="Search"
-        type="text"
-        className="w-6 mr-3"
-      />
+      <InputText placeholder="Search" type="text" className="w-6 mr-3" />
       <Menu
         ref={userMenu}
         popup
@@ -93,24 +87,21 @@ export default function Header() {
         popupAlignment="right"
       />
       <div
-      className="flex align-items-center justify-content-center"
-      aria-controls="user_popup_menu"
-      aria-haspopup
-      onClick={(event: any) => userMenu.current?.toggle(event)}
+        className="flex align-items-center justify-content-center"
+        aria-controls="user_popup_menu"
+        aria-haspopup
+        onClick={(event: any) => userMenu.current?.toggle(event)}
       >
         <p>{account ? account.fullName : "Tài khoản"}</p>
-      <Avatar
-      className="ml-2"
-        image={
-          account?.avatar ||
-          "https://cdn-icons-png.flaticon.com/512/6681/6681204.png"
-        }
-        shape="circle"
-        size="large"
-
-        
-        
-      />
+        <Avatar
+          className="ml-2"
+          image={
+            account?.avatar ||
+            "https://cdn-icons-png.flaticon.com/512/6681/6681204.png"
+          }
+          shape="circle"
+          size="large"
+        />
       </div>
     </div>
   );

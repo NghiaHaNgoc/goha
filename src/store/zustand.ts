@@ -1,11 +1,11 @@
-import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
-import { LoginResponse, User } from '../model/user'
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
+import { LoginResponse, User } from "../model/user";
 
 export interface AccountState {
-  account: LoginResponse | null | undefined
-  signIn: (user?: LoginResponse) => void
-  signOut: () => void
+  account: LoginResponse | null | undefined;
+  signIn: (user?: LoginResponse) => void;
+  signOut: () => void;
 }
 
 export const useAccountStore = create<AccountState>()(
@@ -14,9 +14,9 @@ export const useAccountStore = create<AccountState>()(
       (set, get) => ({
         account: null,
         signIn: (user) => set(() => ({ account: user })),
-        signOut: () => set(() => ({ account: null }))
+        signOut: () => set(() => ({ account: null })),
       }),
-      { name: 'accountStore' },
+      { name: "accountStore" },
     ),
   ),
-)
+);
