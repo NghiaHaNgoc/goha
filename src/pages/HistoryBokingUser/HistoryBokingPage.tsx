@@ -64,6 +64,17 @@ export default function HistoryBookingPage() {
     }
   };
 
+  // Render cột thời gian theo định dạng Việt Nam
+  const dateBody = (rowData: Booking) => {
+    return new Date(rowData.bookingTime).toLocaleString("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   // Render cột trạng thái
   const statusBody = (rowData: Booking) => {
     const { color, label } = getStatusDetails(rowData.status);
@@ -86,7 +97,7 @@ export default function HistoryBookingPage() {
       <h2>Lịch sử đặt lịch</h2>
       <DataTable value={bookings} paginator rows={10} responsiveLayout="scroll">
         <Column field="salonName" header="Tên Salon" />
-        <Column field="bookingTime" header="Thời gian" />
+        <Column body={dateBody} header="Thời gian" />
         <Column field="notes" header="Ghi chú" />
         <Column field="address" header="Địa chỉ" />
         <Column body={statusBody} header="Trạng thái" />
