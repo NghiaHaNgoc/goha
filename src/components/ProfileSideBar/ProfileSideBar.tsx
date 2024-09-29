@@ -19,13 +19,12 @@ export default function ProfileSideBar() {
       },
     },
   ];
-  // getProfileService().then((res) => console.log(res));
   return (
     <>
       <div className="w-full flex justify-content-center mt-6">
-        <div className="w-full lg:w-8 grid">
+        <div className="w-full lg:w-10 grid">
           <div className="col-12 md:col-3">
-            <Menu className="w-full" model={items} />
+            <Menu className="w-full md:h-full" model={items} />
           </div>
 
           <Outlet />

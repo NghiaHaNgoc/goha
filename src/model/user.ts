@@ -4,12 +4,12 @@ export type LoginRequest = {
 };
 
 export type LoginResponse = {
-  avatar: string;
-  email: string;
+  avatar?: string;
+  email?: string;
   fullName?: string;
   role?: Role;
-  token: string;
-  username: string;
+  token?: string;
+  username?: string;
 };
 
 export type SignUpRequest = {
