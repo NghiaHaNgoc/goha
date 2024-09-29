@@ -38,33 +38,80 @@ export default function Header() {
     },
   ];
 
-  const userMenuOptions = {
-    loggedOut: [
-      {
-        label: "Đăng nhập",
-        url: "/dang-nhap",
-      },
-      {
-        label: "Đăng ký",
-        url: "dang-ky",
-      },
-    ],
-    loggedIn: [
-      {
-        label: "Hồ sơ",
-        url: "/ho-so",
-      },
-      {
-        label: "Danh sách đặt",
-      },
-      {
-        label: "Đăng xuất",
-        command: () => {
-          signOutAccount();
-          navigate("/");
-        },
-      },
-    ],
+  const getUserMenu = (role?: Role) => {
+    switch (role) {
+      case Role.ADMIN:
+        return [
+          {
+            label: "Hồ sơ",
+            command: () => {
+              navigate("/ho-so");
+            },
+          },
+          {
+            label: "Quản lý",
+          },
+          {
+            label: "Đăng xuất",
+            command: () => {
+              signOutAccount();
+              navigate("/");
+            },
+          },
+        ];
+      case Role.SALON_OWNER:
+        return [
+          {
+            label: "Hồ sơ",
+            command: () => {
+              navigate("/ho-so");
+            },
+          },
+          {
+            label: "Quản lý",
+            command: () => {
+              navigate("/chu-tiem/quan-ly")
+            }
+          },
+          {
+            label: "Đăng xuất",
+            command: () => {
+              signOutAccount();
+              navigate("/");
+            },
+          },
+        ];
+      case Role.CUSTOMER:
+        return [
+          {
+            label: "Hồ sơ",
+            command: () => {
+              navigate("/ho-so");
+            },
+          },
+          {
+            label: "Danh sách đặt",
+          },
+          {
+            label: "Đăng xuất",
+            command: () => {
+              signOutAccount();
+              navigate("/");
+            },
+          },
+        ];
+      default:
+        return [
+          {
+            label: "Đăng nhập",
+            url: "/dang-nhap",
+          },
+          {
+            label: "Đăng ký",
+            url: "dang-ky",
+          },
+        ];
+    }
   };
 
   const start = (
@@ -82,7 +129,7 @@ export default function Header() {
       <Menu
         ref={userMenu}
         popup
-        model={account ? userMenuOptions.loggedIn : userMenuOptions.loggedOut}
+        model={account ? getUserMenu(account?.role) : getUserMenu()}
         id="user_popup_menu"
         popupAlignment="right"
       />

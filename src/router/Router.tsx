@@ -14,6 +14,8 @@ import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import ProfileSideBar from "../components/ProfileSideBar/ProfileSideBar";
 import SalonDetailPage from "../pages/SalonDetailPage/SalonDetailPage";
+import ManageSideBar from "../components/ManageSideBar/ManageSideBar";
+import SalonManagerPage from "../pages/SalonManagerPage/SalonManagerPage";
 
 export const AdminRoute = ({ children }: any) => {
   const user = useAccountStore((state) => state.account);
@@ -91,15 +93,39 @@ const publicRouter = createBrowserRouter([
           },
         ],
       },
-        // Salon 
+      // Salon
       {
         path: "/salon/:salonId",
-        element: <SalonDetailPage/>
-      }
+        element: <SalonDetailPage />,
+      },
+
+      // Manager
+      {
+        path: "/chu-tiem/quan-ly",
+        element: <ManageSideBar />,
+        children: [
+          {
+            path: "/chu-tiem/quan-ly",
+            element: (
+              <SalonOwnerRoute>
+                <SalonManagerPage />
+              </SalonOwnerRoute>
+            ),
+            
+          },
+          {
+            path: "/chu-tiem/quan-ly/salon",
+            element: (
+              <SalonOwnerRoute>
+                <SalonManagerPage />
+              </SalonOwnerRoute>
+            ),
+            
+          },
+        ],
+      },
     ],
   },
-
-  
 ]);
 
 export default function Router() {
