@@ -14,6 +14,7 @@ import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import ProfileSideBar from "../components/ProfileSideBar/ProfileSideBar";
 import SalonDetailPage from "../pages/SalonDetailPage/SalonDetailPage";
+import HistoryBookingPage from "../pages/HistoryBokingUser/HistoryBokingPage";
 
 export const AdminRoute = ({ children }: any) => {
   const user = useAccountStore((state) => state.account);
@@ -91,15 +92,18 @@ const publicRouter = createBrowserRouter([
           },
         ],
       },
-        // Salon 
+      // Salon
       {
         path: "/salon/:salonId",
-        element: <SalonDetailPage/>
-      }
+        element: <SalonDetailPage />,
+      },
+      // lịch sử booking
+      {
+        path: "history-booking",
+        element: <HistoryBookingPage />,
+      },
     ],
   },
-
-  
 ]);
 
 export default function Router() {
